@@ -14,7 +14,7 @@ class PhotoProvider extends ChangeNotifier {
   bool _isLoading = true;
   bool get isLoading => _isLoading;
 
-  bool _isNetworkAvailable = true;
+  final bool _isNetworkAvailable = true;
   bool get isNetworkAvailable => _isNetworkAvailable;
 
   List<Photos> _photos = <Photos>[];

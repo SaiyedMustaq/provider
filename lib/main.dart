@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_app/provider/homePage/bottomnavigationProvider/BottomNavigationProvider.dart';
+import 'package:provider_app/provider/login/LoginPage.dart';
+import 'package:provider_app/provider/login/LoginProvider.dart';
 
 import 'provider/paginvation/PaginationProviderPage.dart';
 import 'provider/paginvation/PhotoProvider.dart';
@@ -21,16 +24,18 @@ class MyApp extends StatelessWidget {
       create: (context) => InternetConnectionChecker().onStatusChange,
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider<PhotoProvider>(
-            create: (_) => PhotoProvider(),
-          ),
+          ChangeNotifierProvider<PhotoProvider>(create: (_) => PhotoProvider()),
+          ChangeNotifierProvider<LginProvider>(
+              create: (context) => LginProvider()),
+          ChangeNotifierProvider<BottomNavigationBarProvider>(
+              create: (context) => BottomNavigationBarProvider())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.blue,
-            listTileTheme: ListTileThemeData(
+            listTileTheme: const ListTileThemeData(
               tileColor: Colors.blue,
               contentPadding: EdgeInsets.all(5),
               horizontalTitleGap: 1.2,
@@ -57,10 +62,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final listTileStyle = TextStyle(
-    fontSize: 15,
-    color: Colors.white,
-  );
+  final listTileStyle = TextStyle(fontSize: 15, color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialPageRoute(builder: (context) => SimpleProvider()),
               );
             },
-            title: Text(
-              'Simple provider',
-              style: listTileStyle,
-            ),
+            title: const Text('Simple provider'),
             trailing: const Icon(
               Icons.arrow_right,
               color: Colors.white,
@@ -104,10 +103,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (context) => const PaginationProviderPage()),
               );
             },
-            title: Text(
-              'Simple provider',
-              style: listTileStyle,
+            title: const Text('Simple provider'),
+          ),
+          const SizedBox(height: 5),
+          ListTile(
+            trailing: const Icon(
+              Icons.arrow_right,
+              color: Colors.white,
+              size: 30,
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
+            title: const Text('Login provider'),
           )
         ],
       ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
-import '../InternetNotAvailable.dart';
+import 'package:provider_app/provider/simpleProvider/InternetNotAvailable.dart';
+
 import 'PhotoProvider.dart';
 
 //git app
